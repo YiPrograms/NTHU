@@ -1,0 +1,17 @@
+15
+insert Red 0
+insert Blue 10
+show
+insert Purple 1
+insert Blue 3
+insert Blue 1
+show
+erase1 3
+show
+insert Yellow 4
+insert Purple 6
+reverse 3 5
+show
+erase2 Blue
+show
+
