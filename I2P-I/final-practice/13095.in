@@ -1,0 +1,42 @@
+<table>
+  <thead>
+    <tr>
+      <th>Submit Time</th>
+      <th> User</th>
+      <th>Problem </th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+ <tr>
+        <td> 00:09 </td>
+        <td>4 </td>
+        <td>  B</td>
+        <td>   Accepted </td>
+      </tr>
+      <tr>
+        <td>00:21</td>
+        <td>3 </td>
+        <td>A</td>
+   <td>   Accepted   </td>
+      </tr>
+    <tr>
+        <td> 00:22 </td>
+        <td>4 </td>
+        <td>  A </td>
+        <td>   Wrong Answer    </td>
+      </tr>
+      <tr>
+           <td> 00:25 </td>
+        <td>7 </td>
+   <td>D </td>
+        <td>   Wrong Answer</td>
+      </tr>
+      <tr>
+        <td> 01:00 </td>
+     <td>4 </td>
+        <td>A </td>
+        <td>   Accepted    </td>
+      </tr>
+  </tbody>
+</table>
