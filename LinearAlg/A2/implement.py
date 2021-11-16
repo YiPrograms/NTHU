@@ -184,9 +184,9 @@ def P1P2():
     # rolldata = rolldata[offset:]
 
     ani = FuncAnimation(fig, myMovie, frames=len(xdata), interval=33)
-    print("Generating P2.gif...")
-    # Using imagemagick write is very slow and it crashes
     if not no_gif:
+        print("Generating P2.gif...")
+        # Using imagemagick writer is very slow and it crashes
         ani.save('P2.gif', writer='pillow', fps=30)
     plt.show()
 
@@ -363,9 +363,9 @@ def P3():
     # rolldata = rolldata[offset:]
 
     ani = FuncAnimation(fig, myMovie, frames=len(xdata), interval=33)
-    print("Generating P3.gif...")
-    # Using imagemagick write is very slow and it crashes
     if not no_gif:
+        print("Generating P3.gif...")
+        # Using imagemagick writer is very slow and it crashes
         ani.save('P3.gif', writer='pillow', fps=30)
     plt.show()
 
@@ -450,20 +450,30 @@ def P5():
 
     deg = np.array([.0, .0, .0])
     omega = np.array([.0, .0, .0])
+    # omega_change = [
+    #     [(230, 1), (230+90, 0), (230+110, -1), (230+200, 0),
+    #      (810, 1), (810+90, 0), (810+110, -1), (810+200, 0)],
+
+    #     [(0, .5), (90, 0), (110, -.5), (200, 0),
+    #      (690, .5), (690+90, 0)],
+
+    #     [(460, 1), (460+90, 0), (460+110, -1), (460+200, 0),
+    #      (1050, 1), (1050+90, 0), (1050+110, -1), (1050+200, 0)]
+    # ]
     omega_change = [
-        [(230, 1), (230+90, 0), (230+110, -1), (230+200, 0),
-         (810, 1), (810+90, 0), (810+110, -1), (810+200, 0)],
+        [(150, 1), (150+180, 0),
+         (590, 1), (590+180, 0)],
 
-        [(0, .5), (90, 0), (110, -.5), (200, 0),
-         (690, .5), (690+90, 0)],
+        [(0, 1), (45, 0), (100, -1), (145, 0),
+         (590, 1), (590+45, 0), (590+100, -1), (590+145, 0)],
 
-        [(460, 1), (460+90, 0), (460+110, -1), (460+200, 0),
-         (1050, 1), (1050+90, 0), (1050+110, -1), (1050+200, 0)]
+        [(360, 1), (360+180, 0),
+         (590, 1), (590+180, 0)]
     ]
     cur_omegachange = [0, 0, 0]
 
 
-    for cur in range(1300):
+    for cur in range(800):
         yawdata.append(deg[0])
         pitchdata.append(deg[1])
         rolldata.append(deg[2])
@@ -484,12 +494,13 @@ def P5():
 
     ani = FuncAnimation(fig, myMovie, frames=len(yawdata), interval=3)
     if not no_gif:
+        print("Generating P5.gif...")
         ani.save('P5.gif', writer='pillow', fps=30)
     plt.show()
 
 
 if __name__ == "__main__":
-    # P1P2()
-    # P3()
+    P1P2()
+    P3()
     P5()
 
