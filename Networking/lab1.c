@@ -12,7 +12,6 @@ char hostname[1024];
 char buffer[10240000];
 
 int main(int argc, char const *argv[]) {
-	
 
 	printf("Enter the hostname: ");
 	scanf("%s", url);
@@ -27,7 +26,7 @@ int main(int argc, char const *argv[]) {
 	}
 
 	if (hostname_sep == -1) {
-		printf("Could not resolve hostname from URL");
+		printf("Could not extract hostname from URL\n");
 		return -1;
 	}
 	memcpy(hostname, url, hostname_sep);
@@ -44,8 +43,12 @@ int main(int argc, char const *argv[]) {
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_port = htons(PORT);
 
-	struct hostent *he = gethostbyname(hostname);
-	memcpy(&serv_addr.sin_addr, he->h_addr_list[0], he->h_length);
+	struct hostent *h = gethostbyname(hostname);
+	if (h == NULL) {
+		printf("Could not resolve hostname: %s\n", hostname);
+		return -1;
+	}
+	memcpy(&serv_addr.sin_addr, h->h_addr_list[0], h->h_length);
 
 	// // Convert IPv4 and IPv6 addresses from text to binary form
 	// if (inet_pton(AF_INET, hostname, &serv_addr.sin_addr) <= 0) {
@@ -76,20 +79,22 @@ int main(int argc, char const *argv[]) {
 	strcpy(buf_now, "\r\n\r\n");
 	buf_now += 4;
 
-	printf("socket: Start sending HTTP request\n");
+	// printf("socket: Start sending HTTP request\n");
 	if (send(sock, buffer, buf_now - buffer, 0) < 0) {
 		printf("socket: Send failed\n");
 		return -1;
 	}
 
-	printf("socket: Start read the response\n");
+	// printf("socket: Start read the response\n");
 	buf_now = buffer;
 	int read_len = 0;
 	while ((read_len = read(sock, buf_now, sizeof(buffer) - (buf_now - buffer))) > 0) {
 		buf_now += read_len;
 	}
-	printf("socket: Finish read to buffer\n");
+	// printf("socket: Finish read to buffer\n");
+	// printf("%s\n", buffer);
 	
+	int link_cnt = 0;
 	printf("======== Hyperlinks ========\n");
 	int res_len = buf_now - buffer;
 	for (int i = 7; i < res_len; i++) {
@@ -99,12 +104,15 @@ int main(int argc, char const *argv[]) {
 					if (buffer[k] == '\"') {
 						buffer[k] = '\0';
 						printf("%s\n", buffer + (i + 2));
+						link_cnt++;
 						break;
 					}
 				}
 			}
 		}
 	}
+
+	printf("Hyperlinks count: %d\n", link_cnt);
 
 	return 0;
 }
