@@ -27,6 +27,7 @@ def radixSort(x, col):
             cnt[(a[i]//(10**d))%10] -= 1
 
         for i in range(n):
+            a[i] = res[i][col]
             x[i] = res[i]
 
     return x
@@ -36,15 +37,55 @@ def radixSort(x, col):
 # you cannot use x to compute the center and the radius inside this function.
 def dataSampling(x):
     xs = radixSort(deepcopy(x), 0)
-    ys = radixSort(deepcopy(x), 0)
-    print(xs)
-    mid_x = xs[len(xs)//2]
-    mid_y = ys[len(ys)//2]
+    ys = radixSort(deepcopy(x), 1)
+    mid_x = xs[len(xs)//2][0]
+    mid_y = ys[len(ys)//2][1]
 
-    # pts = []
-    # for p in x:
+    low_x = xs[len(xs)//5][0]
+    high_x = xs[len(xs)//5*4][0]
 
-    return x
+    pts = []
+    for p in xs:
+        if (p[0] >= mid_x and p[1] <= mid_y):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in xs:
+        if (p[0] >= mid_x and p[1] > mid_y):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in xs:
+        if (p[0] >= low_x and p[1] <= mid_y):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in xs:
+        if (p[0] >= low_x and p[1] > mid_y):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in xs:
+        if (p[0] >= high_x and p[1] <= mid_y):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in xs:
+        if (p[0] >= high_x and p[1] > mid_y):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in ys:
+        if (p[1] >= mid_y and p[0] <= mid_x):
+            if (p not in pts):
+                pts.append(p)
+            break
+    for p in ys:
+        if (p[1] >= mid_y and p[0] > mid_x):
+            if (p not in pts):
+                pts.append(p)
+            break
+    return pts
     # xs = list(map(lambda p: p[0], x))
     # ys = list(map(lambda p: p[1], x))
 
@@ -80,7 +121,16 @@ def dataSampling(x):
     # plt.scatter(*list(zip(*pts)))
     # return pts
 
+def myNormalEquation(A, b):
+    lhs = np.matmul(A.T, A)
+    rhs = np.matmul(A.T, b)
 
+    # x: Solution of the least square problem using normal equation
+    x = np.linalg.solve(lhs, rhs)
+
+    # r: Sum of squared residuals, sum((y_i - f(x_i))^2)
+    r = sum(map(lambda x: x*x, b - np.dot(A, x)))
+    return x, r
 
 def circle(sp) :
     n=len(sp)
@@ -104,7 +154,7 @@ def draw_circle(x, h, w) :
     C = (a - x[0])*(a - x[0]) + (b - x[1])*(b - x[1]) - radius*radius
     return a, b, C
 
-def eclipse(sp) :
+def ellipse(sp) :
     n=len(sp)
     # TODO: How many variable should use?
     A = np.zeros((n, 5))
@@ -118,7 +168,7 @@ def eclipse(sp) :
 
     return A, b
 
-def draw_eclipse(x, h, w) :
+def draw_ellipse(x, h, w) :
     # plot the drawing and the fitted circle
     x_axis = np.linspace(0, w, 700)
     y_axis = np.linspace(0, h, 700)
@@ -161,42 +211,36 @@ def judge_overlapping(points) :
 
     overlapping = alpha * (r1**2) + beta * (r2**2) - (r1**2) * math.cos(alpha) * math.sin(alpha) - (r2**2) * math.cos(beta) * math.sin(beta)
 
-    return overlapping / (max(r1**2, r2**2)*np.pi)
+    return overlapping / (max(r1**2, r2**2) * np.pi)
 
 def judge_sampling(points) :
+    old_points = list(points)
     all_point = len(points)
     sp = dataSampling(points)
     sp_len = 0
     for p in sp :
-        for ss in points :
+        for ss in old_points :
             if ss[0] == p[0] and ss[1] == p[1] :
                 sp_len += 1
+    
+    if (old_points != points) :
+        return 0
 
     return (all_point - sp_len) / all_point
 
 
 def judge(points) :
-    overlap = judge_overlapping(points)
     sample = judge_sampling(points)
+    overlap = judge_overlapping(points)
 
     print("The score of this question is : ")
     print("20 * (0.3 * ? (Efficiency, need your report) + 0.3 * {:f} (correctness) + 0.4 * {:f} (sampling) ) =  ? + {:f}".format(overlap, sample, 20 * (0.3 * overlap + 0.4 * sample)))
 
-def myNormalEquation(A, b):
-    lhs = np.matmul(A.T, A)
-    rhs = np.matmul(A.T, b)
 
-    # x: Solution of the least square problem using normal equation
-    x = np.linalg.solve(lhs, rhs)
 
-    # r: Sum of squared residuals, sum((y_i - f(x_i))^2)
-    r = sum(map(lambda x: x*x, b - np.dot(A, x)))
-    return x, r
-
-def main(file, mode="circle") :
+def main(file, mode="circle", no_sampling=False) :
     # read image and get circle points
     #im1 = img.imread('puddle.png')
-    figure, axes = plt.subplots(1)
     im1 = img.imread(file)
     [h, w, c] = np.array(im1).shape
     points = []
@@ -207,41 +251,78 @@ def main(file, mode="circle") :
 
 
     # sampling data
-    sp = dataSampling(points)
+    if no_sampling:
+        sp = points
+    else:
+        sp = dataSampling(points)
 
     if mode == "circle":
         # create matrix for fitting
         A, b = circle(sp)
-        print(A, b)
-
-        xx, rr = myNormalEquation(A, b)
-        print(xx, rr)
 
         # solve the least square problem
         [x, r, rank] = np.linalg.lstsq(A, b, rcond=None)[0:3]
-        print(x, r)
-        print(rank)
 
         a, b, C = draw_circle(x, h, w)
-    elif mode == "eclipse":
+    elif mode == "ellipse":
         # create matrix for fitting
-        A, b = eclipse(sp)
+        A, b = ellipse(sp)
 
         # solve the least square problem
         [x, r, rank] = np.linalg.lstsq(A, b, rcond=None)[0:3]
 
-        a, b, C = draw_eclipse(x, h, w)
+        a, b, C = draw_ellipse(x, h, w)
+    elif mode == "normal_eq":
+        # create matrix for fitting
+        A, b = circle(sp)
 
-    plt.imshow(im1) 
+        # solve the least square problem
+        # Using my own normal equation implemention
+        [x, r] = myNormalEquation(A, b)
+
+        a, b, C = draw_circle(x, h, w)
+
+    figure, axes = plt.subplots(1)
+    plt.imshow(im1)
     axes.contour(b, a, C, [0])
     axes.set_aspect(1)
-    plt.show()
+
+    # xxx, yyy = zip(*sp)
+    # axes.scatter(yyy, xxx)
+
+    # from scipy.spatial import Voronoi, voronoi_plot_2d
+    # vor = Voronoi(list(zip(yyy, xxx)))
+    # vor_far = Voronoi(list(zip(yyy, xxx)), True)
+    # vx, vy = zip(*vor.vertices)
+    # axes.scatter(vy, vx)
+    # voronoi_plot_2d(vor, ax=axes)
+    # voronoi_plot_2d(vor_far, ax=axes)
+
+    # print([x[0], x[1]])
+    # axes.scatter(x[0], x[1])
+    # print(vor.vertices)
+    
+
     plt.savefig(file+'.output.png')
-    # judge(points)
+    plt.show()
+    points = []
+    for i in range(h):
+        for j in range(w):
+            if (all(im1[i,j,:])==0):
+                points.append([i, j])
+    judge(points)
     print("="*50)
 
-#for f in files :
-#    main('/content/drive/My Drive/' + f, mode="circle")
-main('3.png', mode="eclipse")
-main('x=y.png', mode="circle")
-# main('/content/drive/My Drive/eclipse.png', mode="eclipse")
+# circle_files = ['circle6.png', '1.png', '2.png', '3.png', 'case1.png', 'case2.png', 'case3.png', 'case4.png', 'case5.png', 'puddle.png', 'x=y.png']
+# circle_files = ["1.png", "circle1.png", "circle2.png", "circle3.png"]
+ellipse_files = ['ellipse1.png', "ellipse2.png", "3.png"]
+
+# for f in circle_files :
+#     main(f, mode="normal_eq", no_sampling=True)
+for f in ellipse_files :
+    main(f, mode="ellipse", no_sampling=True)
+
+# main('x=y.png', mode="circle")
+# main('2.png', mode="circle")
+# main('3.png', mode="circle")
+# main('x=y.png', mode="circle")
