@@ -179,6 +179,7 @@ def judge_sampling(points) :
 
     return (all_point - sp_len) / all_point
 
+total = 0
 
 def judge(points) :
     sample = judge_sampling(points)
@@ -186,7 +187,7 @@ def judge(points) :
 
     print("The score of this question is : ")
     print("20 * (0.3 * ? (Efficiency, need your report) + 0.3 * {:f} (correctness) + 0.4 * {:f} (sampling) ) =  ? + {:f}".format(overlap, sample, 20 * (0.3 * overlap + 0.4 * sample)))
-
+    total += sample
 
 
 def main(file, mode="circle", no_sampling=False, draw_sample=False) :
@@ -272,6 +273,7 @@ circle_files += ["1.png", "circle1.png", "circle2.png", "circle3.png"]
 for f in circle_files :
     main(f, mode="circle")
 
+print(total)
 # main('x=y.png', mode="circle")
 # main('2.png', mode="circle")
 # main('3.png', mode="circle")
