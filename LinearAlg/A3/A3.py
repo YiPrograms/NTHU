@@ -4,10 +4,46 @@ import matplotlib.pyplot as plt
 import math
 
 import random
+from copy import deepcopy
+	
+
+def radixSort(x, col):
+    a = np.array(x)[:,col]
+    digits = int(math.log10(max(a))) + 1
+    
+    for d in range(digits):
+        n = len(a)
+        res = [0] * n
+        cnt = [0] * 10
+
+        for i in range(n):
+            cnt[(a[i]//(10**d))%10] += 1
+
+        for i in range(1, 10):
+            cnt[i] += cnt[i - 1]
+
+        for i in range(n-1, -1, -1):
+            res[cnt[(a[i]//(10**d))%10] - 1] = x[i]
+            cnt[(a[i]//(10**d))%10] -= 1
+
+        for i in range(n):
+            x[i] = res[i]
+
+    return x
+
 
 # For question (4)
 # you cannot use x to compute the center and the radius inside this function.
 def dataSampling(x):
+    xs = radixSort(deepcopy(x), 0)
+    ys = radixSort(deepcopy(x), 0)
+    print(xs)
+    mid_x = xs[len(xs)//2]
+    mid_y = ys[len(ys)//2]
+
+    # pts = []
+    # for p in x:
+
     return x
     # xs = list(map(lambda p: p[0], x))
     # ys = list(map(lambda p: p[1], x))
