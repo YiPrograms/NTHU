@@ -15,7 +15,7 @@ def radixSort(x, col):
         n = len(a)
         res = [0] * n
         cnt = [0] * 10
-
+        
         for i in range(n):
             cnt[(a[i]//(10**d))%10] += 1
 
@@ -36,90 +36,41 @@ def radixSort(x, col):
 # For question (4)
 # you cannot use x to compute the center and the radius inside this function.
 def dataSampling(x):
-    xs = radixSort(deepcopy(x), 0)
+    # Radix sort by y value
+    # Using radix sort for O(n) complexity
     ys = radixSort(deepcopy(x), 1)
-    mid_x = xs[len(xs)//2][0]
+    # Get the median
     mid_y = ys[len(ys)//2][1]
 
-    low_x = xs[len(xs)//5][0]
-    high_x = xs[len(xs)//5*4][0]
+    # Seperate points into two sets, upper and lower
+    upper = list(filter(lambda p: p[1] >= mid_y, x))
+    lower = list(filter(lambda p: p[1] < mid_y, x))
+
+    # Sort the sets by x value
+    upper = radixSort(upper, 0)
+    lower = radixSort(lower, 0)
 
     pts = []
-    for p in xs:
-        if (p[0] >= mid_x and p[1] <= mid_y):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in xs:
-        if (p[0] >= mid_x and p[1] > mid_y):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in xs:
-        if (p[0] >= low_x and p[1] <= mid_y):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in xs:
-        if (p[0] >= low_x and p[1] > mid_y):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in xs:
-        if (p[0] >= high_x and p[1] <= mid_y):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in xs:
-        if (p[0] >= high_x and p[1] > mid_y):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in ys:
-        if (p[1] >= mid_y and p[0] <= mid_x):
-            if (p not in pts):
-                pts.append(p)
-            break
-    for p in ys:
-        if (p[1] >= mid_y and p[0] > mid_x):
-            if (p not in pts):
-                pts.append(p)
-            break
+    # Function to avoid adding duplicate points
+    def addPt(p):
+        if p not in pts:
+            pts.append(p)
+
+    # Add the 96th percentile x values
+    addPt(upper[len(upper) // 96])
+    addPt(upper[-len(upper)//96 - 1])
+
+    # Add median, 20th percentile, and 80th percentile of the upper set
+    addPt(upper[len(upper) // 2])
+    addPt(upper[len(upper) // 5])
+    addPt(upper[-len(upper)//5 - 1])
+
+    # Add median, 20th percentile, and 80th percentile of  the lower set
+    addPt(lower[len(lower) // 2])
+    addPt(lower[len(lower) // 5])
+    addPt(lower[-len(lower)//5 - 1])
+
     return pts
-    # xs = list(map(lambda p: p[0], x))
-    # ys = list(map(lambda p: p[1], x))
-
-    # x_avg, y_avg = np.average(x, axis=0)
-    # x_std, y_std = np.std(x, axis=0)
-
-    # print(x_avg, y_avg, x_std, y_std)
-
-
-    # xs = list(filter(lambda x: abs(x - x_avg) < 2*x_std, xs))
-    # ys = list(filter(lambda x: abs(x - x_avg) < 2*y_std, ys))
-
-    # max_x = max(xs)
-    # min_x = min(xs)
-
-    # max_y = max(ys)
-    # min_y = min(ys)
-
-    # tar_x = [(max_x * i + min_x * (5-i)) // 5 for i in range(1, 6)]
-    # tar_y = [(max_y * i + min_y * (5-i)) // 5 for i in range(1, 6)]
-
-    # print(tar_x, tar_y)
-
-    # for xx in tar_x:
-    #     plt.plot([xx, xx], [min_y, max_y])
-
-    # for yy in tar_y:
-    #     plt.plot([min_x, max_x], [yy, yy])
-
-
-    # pts = list(filter(lambda p: p[0] in tar_x or p[1] in tar_y, x))
-    # print(pts)
-    # plt.scatter(*list(zip(*pts)))
-    # return pts
 
 def myNormalEquation(A, b):
     lhs = np.matmul(A.T, A)
@@ -238,7 +189,7 @@ def judge(points) :
 
 
 
-def main(file, mode="circle", no_sampling=False) :
+def main(file, mode="circle", no_sampling=False, draw_sample=False) :
     # read image and get circle points
     #im1 = img.imread('puddle.png')
     im1 = img.imread(file)
@@ -287,8 +238,9 @@ def main(file, mode="circle", no_sampling=False) :
     axes.contour(b, a, C, [0])
     axes.set_aspect(1)
 
-    # xxx, yyy = zip(*sp)
-    # axes.scatter(yyy, xxx)
+    if draw_sample:
+        xxx, yyy = zip(*sp)
+        axes.scatter(yyy, xxx)
 
     # from scipy.spatial import Voronoi, voronoi_plot_2d
     # vor = Voronoi(list(zip(yyy, xxx)))
@@ -313,14 +265,12 @@ def main(file, mode="circle", no_sampling=False) :
     judge(points)
     print("="*50)
 
-# circle_files = ['circle6.png', '1.png', '2.png', '3.png', 'case1.png', 'case2.png', 'case3.png', 'case4.png', 'case5.png', 'puddle.png', 'x=y.png']
-# circle_files = ["1.png", "circle1.png", "circle2.png", "circle3.png"]
-ellipse_files = ['ellipse1.png', "ellipse2.png", "3.png"]
+circle_files = ['circle6.png', '1.png', '2.png', '3.png', 'case1.png', 'case2.png', 'case3.png', 'case4.png', 'case5.png', 'puddle.png', 'x=y.png']
+circle_files += ["1.png", "circle1.png", "circle2.png", "circle3.png"]
+# ellipse_files = ['ellipse1.png', "ellipse2.png", "3.png"]
 
-# for f in circle_files :
-#     main(f, mode="normal_eq", no_sampling=True)
-for f in ellipse_files :
-    main(f, mode="ellipse", no_sampling=True)
+for f in circle_files :
+    main(f, mode="circle")
 
 # main('x=y.png', mode="circle")
 # main('2.png', mode="circle")
