@@ -56,19 +56,19 @@ def dataSampling(x):
         if p not in pts:
             pts.append(p)
 
-    # Add the 96th percentile x values
-    addPt(upper[len(upper) // 96])
-    addPt(upper[-len(upper)//96 - 1])
+    # Add the left and right x values
+    addPt(upper[len(upper) // 97])
+    addPt(upper[-len(upper)//97 - 1])
 
-    # Add median, 20th percentile, and 80th percentile of the upper set
+    # Add median, 22th percentile, and 78th percentile of the upper set
     addPt(upper[len(upper) // 2])
-    addPt(upper[len(upper) // 5])
-    addPt(upper[-len(upper)//5 - 1])
+    addPt(upper[int(len(upper) * 0.22)])
+    addPt(upper[int(-len(upper)*0.22) - 1])
 
-    # Add median, 20th percentile, and 80th percentile of  the lower set
+    # Add median, 22th percentile, and 78th percentile of the lower set
     addPt(lower[len(lower) // 2])
-    addPt(lower[len(lower) // 5])
-    addPt(lower[-len(lower)//5 - 1])
+    addPt(lower[int(len(lower) * 0.22)])
+    addPt(lower[int(-len(lower)*0.22) - 1])
 
     return pts
 
@@ -179,16 +179,12 @@ def judge_sampling(points) :
 
     return (all_point - sp_len) / all_point
 
-total = 0
-
 def judge(points) :
     sample = judge_sampling(points)
     overlap = judge_overlapping(points)
 
     print("The score of this question is : ")
     print("20 * (0.3 * ? (Efficiency, need your report) + 0.3 * {:f} (correctness) + 0.4 * {:f} (sampling) ) =  ? + {:f}".format(overlap, sample, 20 * (0.3 * overlap + 0.4 * sample)))
-    total += sample
-
 
 def main(file, mode="circle", no_sampling=False, draw_sample=False) :
     # read image and get circle points
@@ -271,10 +267,8 @@ circle_files += ["1.png", "circle1.png", "circle2.png", "circle3.png"]
 # ellipse_files = ['ellipse1.png', "ellipse2.png", "3.png"]
 
 for f in circle_files :
-    main(f, mode="circle")
+    main(f, mode="circle", draw_sample=True)
 
-print(total)
 # main('x=y.png', mode="circle")
 # main('2.png', mode="circle")
 # main('3.png', mode="circle")
-# main('x=y.png', mode="circle")
