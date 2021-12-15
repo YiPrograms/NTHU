@@ -22,30 +22,35 @@ def farthestPointVoronoi(pts, axes):
         # Find largest circle formed by 3 pts
         cir = ((0, 0), -1, -1)
         for i in range(len(ch)):
-            a, b = ch[i-1]
-            c, d = ch[i]
-            e, f = ch[i+1 if i+1 < len(ch) else 0]
+            x1, y1 = ch[i-1]
+            x2, y2 = ch[i]
+            x3, y3 = ch[i+1 if i+1 < len(ch) else 0]
 
-            # Solve the center
-            A = np.array([[-2*a+2*c, -2*b+2*d],
-                            [-2*c+2*e, -2*d+2*f]])
-            b = np.array([[-a*a+c*c-b*b+d*d],
-                            [-c*c+e*e-d*d+f*f]])
-            [x], [y] = np.linalg.solve(A, b)
+            # Calculate the center and radius
+            c = (x1-x2)**2 + (y1-y2)**2
+            a = (x2-x3)**2 + (y2-y3)**2
+            b = (x3-x1)**2 + (y3-y1)**2
+            s = 2*(a*b + b*c + c*a) - (a*a + b*b + c*c) 
+            cx = (a*(b+c-a)*x1 + b*(c+a-b)*x2 + c*(a+b-c)*x3) / s
+            cy = (a*(b+c-a)*y1 + b*(c+a-b)*y2 + c*(a+b-c)*y3) / s 
+            ar = math.sqrt(a)
+            br = math.sqrt(b)
+            cr = math.sqrt(c)
+            r = ar*br*cr / math.sqrt((ar+br+cr)*(-ar+br+cr)*(ar-br+cr)*(ar+br-cr))
 
-            if (c-x + d-y) * (c-x + d-y) > cir[1]:
+            if r > cir[1]:
                 # Save the center coordinate, the radius and the point that forms the circle
-                cir = ((x, y), (c-x + d-y) * (c-x + d-y), i)
+                cir = ((cx, cy), r, i, ch[i], ch[i-1], ch[i+1 if i+1 < len(ch) else 0])
 
         # The largest circle's center is an vertex
-        vertices.append(cir[0])
+        vertices.append(cir)
         # Remove the point that forms the circle
         ch.pop(cir[2])
     
     # if len(ch) == 2:
     #     vertices.append(((ch[0][0]+ch[1][0])/2, (ch[0][1]+ch[1][1])/2))
 
-    xs, ys = list(zip(*vertices))
+    xs, ys = list(zip(*map(lambda x: x[0], vertices)))
     axes.scatter(ys, xs)
 
     return vertices
@@ -55,21 +60,25 @@ def minimumEnclosingCircle(pts, axes, w, h):
 
     # Add the cases that the circle is formed by the diameter of two points
     for a, b in itertools.combinations(pts, 2):
-        vertices.append(((a[0]+b[0])/2, (a[1]+b[1])/2))
+        vertices.append((((a[0]+b[0])/2, (a[1]+b[1])/2), 0, 0, (-999, -999), a, b))
     
     # Find the minimum enclosing circle
     min_cir = ((0, 0), 1e20)
     for c in vertices:
-        r_sq = max((p[0]-c[0])*(p[0]-c[0]) + (p[1]-c[1])*(p[1]-c[1]) for p in pts)
+        r_sq = max((p[0]-c[0][0])**2 + (p[1]-c[0][1])**2 for p in pts)
         if r_sq < min_cir[1]:
             min_cir = (c, r_sq)
     
     radius = math.sqrt(min_cir[1])
 
-    c = min_cir[0]
+    c = min_cir[0][0]
     x_axis = np.linspace(0, w, 700)
     y_axis = np.linspace(0, h, 700)
 
+    if (min_cir[0][3][1] != -999):
+        axes.plot([min_cir[0][3][1], c[1]], [min_cir[0][3][0], c[0]])
+    axes.plot([min_cir[0][4][1], c[1]], [min_cir[0][4][0], c[0]])
+    axes.plot([min_cir[0][5][1], c[1]], [min_cir[0][5][0], c[0]])
     a, b = np.meshgrid(x_axis, y_axis)
 
     C = (a - c[0])*(a - c[0]) + (b - c[1])*(b - c[1]) - radius*radius
