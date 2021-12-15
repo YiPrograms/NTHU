@@ -7,28 +7,23 @@ import random
 from copy import deepcopy
 	
 
-def radixSort(x, col):
-    a = np.array(x)[:,col]
-    digits = int(math.log10(max(a))) + 1
+def countingSort(x):
+    n = len(x)
+    res = [0] * n
+    cnt = [0] * 360
     
-    for d in range(digits):
-        n = len(a)
-        res = [0] * n
-        cnt = [0] * 10
-        
-        for i in range(n):
-            cnt[(a[i]//(10**d))%10] += 1
+    for i in range(n):
+        cnt[x[i][2]] += 1
 
-        for i in range(1, 10):
-            cnt[i] += cnt[i - 1]
+    for i in range(1, 360):
+        cnt[i] += cnt[i - 1]
 
-        for i in range(n-1, -1, -1):
-            res[cnt[(a[i]//(10**d))%10] - 1] = x[i]
-            cnt[(a[i]//(10**d))%10] -= 1
+    for i in range(n-1, -1, -1):
+        res[cnt[x[i][2]] - 1] = x[i]
+        cnt[x[i][2]] -= 1
 
-        for i in range(n):
-            a[i] = res[i][col]
-            x[i] = res[i]
+    for i in range(n):
+        x[i] = res[i]
 
     return x
 
@@ -36,39 +31,35 @@ def radixSort(x, col):
 # For question (4)
 # you cannot use x to compute the center and the radius inside this function.
 def dataSampling(x):
-    # Radix sort by y value
-    # Using radix sort for O(n) complexity
-    ys = radixSort(deepcopy(x), 1)
-    # Get the median
-    mid_y = ys[len(ys)//2][1]
+    xs, ys = list(zip(*x))
 
-    # Seperate points into two sets, upper and lower
-    upper = list(filter(lambda p: p[1] >= mid_y, x))
-    lower = list(filter(lambda p: p[1] < mid_y, x))
+    # Calculate the central of gravity
+    avgx = sum(xs) / len(xs)
+    avgy = sum(ys) / len(ys)
 
-    # Sort the sets by x value
-    upper = radixSort(upper, 0)
-    lower = radixSort(lower, 0)
+    # Calculate the angle from central of gravity for each point
+    # and append the information to the point
+    ax = list(map(lambda xi: (*xi, int((math.atan2(xi[1] - avgy, xi[0] - avgx) + math.pi) * 360 // (2*math.pi))), x))
+
+    # For fail safe, if the angle range exceeds normal range
+    ax = list(filter(lambda xi: xi[2] >= 0 and xi[2] < 360, ax))
+
+    # Use counting sort to sort the points by angle
+    # Complexity: O(n + 360) = O(n)
+    ax = countingSort(ax)
 
     pts = []
     # Function to avoid adding duplicate points
     def addPt(p):
-        if p not in pts:
-            pts.append(p)
-
-    # Add the left and right x values
-    addPt(upper[len(upper) // 97])
-    addPt(upper[-len(upper)//97 - 1])
-
-    # Add median, 22th percentile, and 78th percentile of the upper set
-    addPt(upper[len(upper) // 2])
-    addPt(upper[int(len(upper) * 0.22)])
-    addPt(upper[int(-len(upper)*0.22) - 1])
-
-    # Add median, 22th percentile, and 78th percentile of the lower set
-    addPt(lower[len(lower) // 2])
-    addPt(lower[int(len(lower) * 0.22)])
-    addPt(lower[int(-len(lower)*0.22) - 1])
+        x, y, ang = p
+        if (x, y) not in pts:
+            pts.append((x, y))
+    
+    n_sample = max(6, len(ax)//100)
+    # n_sample = 6
+    # Add 6 points according to the angle evenly
+    for i in range(n_sample):
+        addPt(ax[len(ax) // n_sample * i])
 
     return pts
 
@@ -179,12 +170,16 @@ def judge_sampling(points) :
 
     return (all_point - sp_len) / all_point
 
+total = 0
+
 def judge(points) :
     sample = judge_sampling(points)
     overlap = judge_overlapping(points)
 
     print("The score of this question is : ")
     print("20 * (0.3 * ? (Efficiency, need your report) + 0.3 * {:f} (correctness) + 0.4 * {:f} (sampling) ) =  ? + {:f}".format(overlap, sample, 20 * (0.3 * overlap + 0.4 * sample)))
+    global total
+    total += 20 * (0.3 * overlap + 0.4 * sample)
 
 def main(file, mode="circle", no_sampling=False, draw_sample=False) :
     # read image and get circle points
@@ -272,3 +267,5 @@ for f in circle_files :
 # main('x=y.png', mode="circle")
 # main('2.png', mode="circle")
 # main('3.png', mode="circle")
+
+print(total)
