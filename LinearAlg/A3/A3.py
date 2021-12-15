@@ -9,17 +9,18 @@ from copy import deepcopy
 import itertools
 
 # Studied here: https://dccg.upc.edu/people/vera/Applet/smallest_enclosing_circle.html#explanation
-def farthestPointVoronoi(pts, axes):
-    xs, ys = list(zip(*pts))
-    axes.scatter(ys, xs)
+# Input: points
+# Output: Vertices of the farthest-point voronoi diagram
+def farthestPointVoronoi(pts):
 
+    # Find the convex hull of the points
     from scipy.spatial import ConvexHull
     ch = list(map(lambda i: pts[i], ConvexHull(pts).vertices))
 
     vertices = []
 
     while len(ch) >= 3:
-        # Find largest circle formed by 3 pts
+        # Find largest circle formed by consective 3 pts on CH
         cir = ((0, 0), -1, -1)
         for i in range(len(ch)):
             x1, y1 = ch[i-1]
@@ -40,51 +41,86 @@ def farthestPointVoronoi(pts, axes):
 
             if r > cir[1]:
                 # Save the center coordinate, the radius and the point that forms the circle
-                cir = ((cx, cy), r, i, ch[i], ch[i-1], ch[i+1 if i+1 < len(ch) else 0])
+                cir = ((cx, cy), r, i)
 
         # The largest circle's center is an vertex
-        vertices.append(cir)
+        vertices.append(cir[0])
         # Remove the point that forms the circle
         ch.pop(cir[2])
     
     # if len(ch) == 2:
     #     vertices.append(((ch[0][0]+ch[1][0])/2, (ch[0][1]+ch[1][1])/2))
-
-    xs, ys = list(zip(*map(lambda x: x[0], vertices)))
-    axes.scatter(ys, xs)
-
     return vertices
 
-def minimumEnclosingCircle(pts, axes, w, h):
-    vertices = farthestPointVoronoi(pts, axes)
+# Using vertices of the farthest-point voronoi diagram to find the minimum enclosing circle
+# Input: points, height, width
+# Output: center of the enclosing circle,
+#         radius of the enclosing circle,
+#         vertices of the farthest-point voronoi diagram
+def minimumEnclosingCircle(pts, h, w):
+    vertices = farthestPointVoronoi(pts)
 
     # Add the cases that the circle is formed by the diameter of two points
+    candidates = vertices[:]
     for a, b in itertools.combinations(pts, 2):
-        vertices.append((((a[0]+b[0])/2, (a[1]+b[1])/2), 0, 0, (-999, -999), a, b))
+        candidates.append(((a[0]+b[0])/2, (a[1]+b[1])/2))
     
-    # Find the minimum enclosing circle
+    # Find the enclosing circle with the smallest radius
+    # which is the minimum enclosing circle
     min_cir = ((0, 0), 1e20)
-    for c in vertices:
-        r_sq = max((p[0]-c[0][0])**2 + (p[1]-c[0][1])**2 for p in pts)
+    for c in candidates:
+        r_sq = max((p[0]-c[0])**2 + (p[1]-c[1])**2 for p in pts)
         if r_sq < min_cir[1]:
             min_cir = (c, r_sq)
     
     radius = math.sqrt(min_cir[1])
+    c = min_cir[0]
+    return c, radius, vertices
+    
 
-    c = min_cir[0][0]
+## Generate random points and find its minimum enclosing circle
+## Input: Number of random points
+def drawMinimumEnclosingCircle(n = 10):
+    h = w = 500
+
+    points = []
+    i = 0
+    while i < n:
+        x = random.randint(h//4, h//4*3)
+        y = random.randint(w//4, w//4*3)
+        if (x, y) in points:
+            continue
+        points.append((x, y))
+        i += 1
+
+    figure, axes = plt.subplots(1)
+    plt.xlim([0, h])
+    plt.ylim([0, w])
+    plt.gca().set_aspect('equal', adjustable='box')
+
+    center, radius, vertices = minimumEnclosingCircle(points, w, h)
+
+    # Draw points
+    xs, ys = zip(*points)
+    axes.scatter(xs, ys)
+
+    # Draw vertices
+    xs, ys = zip(*vertices)
+    axes.scatter(xs, ys)
+
+    # Draw minimum enclosing circle
     x_axis = np.linspace(0, w, 700)
     y_axis = np.linspace(0, h, 700)
 
-    if (min_cir[0][3][1] != -999):
-        axes.plot([min_cir[0][3][1], c[1]], [min_cir[0][3][0], c[0]])
-    axes.plot([min_cir[0][4][1], c[1]], [min_cir[0][4][0], c[0]])
-    axes.plot([min_cir[0][5][1], c[1]], [min_cir[0][5][0], c[0]])
     a, b = np.meshgrid(x_axis, y_axis)
 
-    C = (a - c[0])*(a - c[0]) + (b - c[1])*(b - c[1]) - radius*radius
-    axes.contour(b, a, C, [0])
-    print(min_cir)
+    C = (a - center[0])*(a - center[0]) + (b - center[1])*(b - center[1]) - radius*radius
+    axes.contour(a, b, C, [0])
 
+    # Draw center
+    axes.scatter([center[0]], [center[1]])
+
+    plt.show()
 
 def countingSort(x):
     n = len(x)
@@ -134,9 +170,8 @@ def dataSampling(x):
         if (x, y) not in pts:
             pts.append((x, y))
     
-    n_sample = max(6, len(ax)//100)
-    # n_sample = 6
-    # Add 6 points according to the angle evenly
+    # Sample 2% of points or a minimum of 6 points
+    n_sample = max(6, len(ax)//100 * 2)
     for i in range(n_sample):
         addPt(ax[len(ax) // n_sample * i])
 
@@ -311,20 +346,6 @@ def main(file, mode="circle", no_sampling=False, draw_sample=False) :
         xxx, yyy = zip(*sp)
         axes.scatter(yyy, xxx)
 
-    # from scipy.spatial import Voronoi, voronoi_plot_2d
-    # vor_far = Voronoi(list(zip(yyy, xxx)), True)
-    # vx, vy = zip(*vor_far.vertices)
-    # axes.scatter(vy, vx)
-    # voronoi_plot_2d(vor_far, ax=axes)
-
-    # print([x[0], x[1]])
-    # axes.scatter(x[0], x[1])
-    # print(vor.vertices)
-    
-    aaa = farthestPointVoronoi(sp, h, w)
-    xxx, yyy = zip(*aaa)
-    axes.scatter(yyy, xxx)
-
     plt.savefig(file+'.output.png')
     plt.show()
     points = []
@@ -335,31 +356,13 @@ def main(file, mode="circle", no_sampling=False, draw_sample=False) :
     judge(points)
     print("="*50)
 
-# circle_files = ['circle6.png', '1.png', '2.png', '3.png', 'case1.png', 'case2.png', 'case3.png', 'case4.png', 'case5.png', 'puddle.png', 'x=y.png']
-# circle_files += ["1.png", "circle1.png", "circle2.png", "circle3.png"]
-# # ellipse_files = ['ellipse1.png', "ellipse2.png", "3.png"]
+circle_files = ['case1.png', 'case2.png', 'case3.png', 'case4.png', 'case5.png', 'puddle.png', 'x=y.png']
+ellipse_files = ['ellipse1.png', "ellipse2.png", "ellipse3.png"]
 
-# for f in circle_files :
-#     main(f, mode="circle", draw_sample=True)
-
-
-def circle(f):
-    im1 = img.imread(f)
-    [h, w, c] = np.array(im1).shape
-    points = []
-    for i in range(h):
-        for j in range(w):
-            if (all(im1[i,j,:])==0):
-                points.append([i, j])
-    sp = dataSampling(points)
-
-    figure, axes = plt.subplots(1)
-    plt.xlim([0, h])
-    plt.ylim([0, w])
-    # plt.imshow(im1)
-    plt.gca().set_aspect('equal', adjustable='box')
-    minimumEnclosingCircle(sp, axes, w, h)
-    plt.show()
-circle_files = ['circle6.png', '1.png', '2.png', '3.png', 'case1.png', 'case2.png', 'case3.png', 'case4.png', 'case5.png', 'puddle.png', 'x=y.png']
 for f in circle_files :
-    circle(f)
+    main(f, mode="circle")
+for f in ellipse_files :
+    main(f, mode="ellipse")
+
+for i in range(10, 15):
+    drawMinimumEnclosingCircle(i)
