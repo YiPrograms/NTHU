@@ -43,7 +43,7 @@ def farthestPointVoronoi(pts):
                 # Save the center coordinate, the radius and the point that forms the circle
                 cir = ((cx, cy), r, i)
 
-        # The largest circle's center is an vertex
+        # The largest circle's center is an vertex on the diagram
         vertices.append(cir[0])
         # Remove the point that forms the circle
         ch.pop(cir[2])
@@ -55,9 +55,9 @@ def farthestPointVoronoi(pts):
 # Using vertices of the farthest-point voronoi diagram to find the minimum enclosing circle
 # Input: points, height, width
 # Output: center of the enclosing circle,
-#         radius of the enclosing circle,
+#         cradius of the enclosing circle,
 #         vertices of the farthest-point voronoi diagram
-def minimumEnclosingCircle(pts, h, w):
+def minimumEnclosingCircle(pts):
     vertices = farthestPointVoronoi(pts)
 
     # Add the cases that the circle is formed by the diameter of two points
@@ -98,7 +98,7 @@ def drawMinimumEnclosingCircle(n = 10):
     plt.ylim([0, w])
     plt.gca().set_aspect('equal', adjustable='box')
 
-    center, radius, vertices = minimumEnclosingCircle(points, w, h)
+    center, radius, vertices = minimumEnclosingCircle(points)
 
     # Draw points
     xs, ys = zip(*points)
@@ -118,9 +118,11 @@ def drawMinimumEnclosingCircle(n = 10):
     axes.contour(a, b, C, [0])
 
     # Draw center
-    axes.scatter([center[0]], [center[1]])
+    axes.scatter([center[0]], [center[1]], s=3)
 
     plt.show()
+
+
 
 def countingSort(x):
     n = len(x)
@@ -141,7 +143,6 @@ def countingSort(x):
         x[i] = res[i]
 
     return x
-
 
 # For question (4)
 # you cannot use x to compute the center and the radius inside this function.
@@ -170,8 +171,8 @@ def dataSampling(x):
         if (x, y) not in pts:
             pts.append((x, y))
     
-    # Sample 2% of points or a minimum of 6 points
-    n_sample = max(6, len(ax)//100 * 2)
+    # Sample 1.5% of points or a minimum of 6 points
+    n_sample = max(6, int(len(ax) * 0.015))
     for i in range(n_sample):
         addPt(ax[len(ax) // n_sample * i])
 
