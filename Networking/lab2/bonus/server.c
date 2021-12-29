@@ -52,12 +52,14 @@ typedef struct udp_pkt{
 //=============
 int sockfd;
 struct sockaddr_in info, client_info;
-Udp_pkt snd_pkt,rcv_pkt,rcv_pkt_buffer;
+Udp_pkt snd_pkt,rcv_pkt;
 socklen_t len;
 pthread_t th1,th2;
 int first_time_create_thread = 0;
 
-int got_rcv = 0;
+Udp_pkt queue[WND_SIZE];
+int front = 0;
+int rear = 0;
 
 char buffer[150000];
 int window[15000];
@@ -81,7 +83,6 @@ const size_t datasize = sizeof(snd_pkt.data);
  * 
  *********************************************************/
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t recv_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
 //==============================
@@ -99,12 +100,10 @@ void* receive_thread()
 	// Receive client ack
 	//===================
 	// A thread keep receiving client ack
-	while (recvfrom(sockfd, &rcv_pkt_buffer, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len) != -1)
+	while (recvfrom(sockfd, &rcv_pkt, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len) != -1)
 	{
-		pthread_mutex_lock(&recv_mutex);
-			got_rcv = 1;
-			memcpy(&rcv_pkt, &rcv_pkt_buffer, sizeof(rcv_pkt));
-		pthread_mutex_unlock(&recv_mutex);
+		memcpy(&queue[rear], &rcv_pkt, sizeof(rcv_pkt));
+		rear = (rear + 1) % WND_SIZE;
 	}	
 	//==========================================
 	// Keep the thread alive not to umcomment it
@@ -190,8 +189,8 @@ int sendFile(FILE *fd)
 	 * 
 	 ************************************************/
 
-	got_rcv = 0;
 	memset(window, 0, sizeof(window));
+	front = rear = 0;
 
 	const int pkts_cnt = ceil(filesize * 1.0 / datasize);
 	int cur_window = 0;
@@ -210,15 +209,12 @@ int sendFile(FILE *fd)
 			}
 		}
 
-		got_rcv = 0;
+		while (front != rear);
 
-		while (!got_rcv);
-
-		pthread_mutex_lock(&recv_mutex);
-			printf("\tReceived a packet ack_num = %d\n", rcv_pkt.header.ack_num);
-			window[rcv_pkt.header.ack_num] = 2;
-			printf("\tSet window %d: %d\n", rcv_pkt.header.ack_num, window[rcv_pkt.header.ack_num]);
-		pthread_mutex_unlock(&recv_mutex);
+		printf("\tReceived a packet ack_num = %d\n", queue[front].header.ack_num);
+		window[queue[front].header.ack_num] = 2;
+		printf("\tSet window %d: %d\n", queue[front].header.ack_num, window[queue[front].header.ack_num]);
+		front = (front + 1) % WND_SIZE;
 
 
 		while (window[cur_window] == 2)
