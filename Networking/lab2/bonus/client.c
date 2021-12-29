@@ -158,13 +158,10 @@ int recvFile(FILE *fd)
 			memcpy(buffer + rcv_pkt.header.seq_num * datasize, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
 			filesize += numbytes - sizeof(rcv_pkt.header);
 			window[rcv_pkt.header.seq_num] = 1;
-			printf("Written: %d\n", rcv_pkt.header.seq_num);
 
 
-			while (window[cur_window]) {
+			while (window[cur_window])
 				cur_window++;
-				printf("Cur window: %d\n", cur_window);
-			}
 
 			if (cur_window == last_packet + 1){
 				fwrite(buffer, 1, filesize, fd);

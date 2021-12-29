@@ -100,11 +100,7 @@ void* receive_thread()
 	// Receive client ack
 	//===================
 	// A thread keep receiving client ack
-	while (recvfrom(sockfd, &rcv_pkt, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len) != -1)
-	{
-		memcpy(&queue[rear], &rcv_pkt, sizeof(rcv_pkt));
-		rear = (rear + 1) % WND_SIZE;
-	}	
+	
 	//==========================================
 	// Keep the thread alive not to umcomment it
 	//==========================================
@@ -152,7 +148,7 @@ void* timeout_thread(void *args)
 		while (window[n] != 2 && ((clock()*1000)/CLOCKS_PER_SEC - t) < TIMEOUT);
 
 		if (window[n] != 2) {
-			printf("\tTimeout! Resend packet sequence %d! window = %d\n", n, window[n]);
+			printf("\tTimeout! Resend packet sequence %d!", n);
 		}
 
 	} while (window[n] != 2);
@@ -175,12 +171,12 @@ int sendFile(FILE *fd)
 	// umcomment it and manage the thread by youself
 	//----------------------------------------------------------------
 	// At the first time, we need to create thread.
-	if(!first_time_create_thread)
-	{
-		first_time_create_thread=1;
-		pthread_create(&th1, NULL, receive_thread, NULL);
-		//pthread_create(&th2, NULL, timeout_process, NULL);
-	}
+	// if(!first_time_create_thread)
+	// {
+	// 	first_time_create_thread=1;
+	// 	pthread_create(&th1, NULL, receive_thread, NULL);
+	// 	//pthread_create(&th2, NULL, timeout_process, NULL);
+	// }
 	/*******************notice************************
 	 * 
 	 * In basic part, you should finish this function.
@@ -195,9 +191,6 @@ int sendFile(FILE *fd)
 	const int pkts_cnt = ceil(filesize * 1.0 / datasize);
 	int cur_window = 0;
 
-	printf("\tPackets count: %d\n", pkts_cnt);
-
-
 	do {
 		for (int i = cur_window; i < cur_window + WND_SIZE && i < pkts_cnt; i++) {
 			if (window[i] == 0) {
@@ -209,13 +202,10 @@ int sendFile(FILE *fd)
 			}
 		}
 
-		while (front != rear);
+		recvfrom(sockfd, &rcv_pkt, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len);
 
-		printf("\tReceived a packet ack_num = %d\n", queue[front].header.ack_num);
-		window[queue[front].header.ack_num] = 2;
-		printf("\tSet window %d: %d\n", queue[front].header.ack_num, window[queue[front].header.ack_num]);
-		front = (front + 1) % WND_SIZE;
-
+		printf("\tReceived a packet ack_num = %d\n", rcv_pkt.header.ack_num);
+		window[rcv_pkt.header.ack_num] = 2;
 
 		while (window[cur_window] == 2)
 			cur_window++;

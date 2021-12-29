@@ -55,7 +55,8 @@ socklen_t len;
 pthread_t th1,th2;
 int first_time_create_thread = 0;
 
-int got_rcv = 0;
+// Using atomic type to avoid race conditions
+sig_atomic_t got_rcv = 0;
 
 //---------------------------------------
 // Declare for critical section in bonus. 
