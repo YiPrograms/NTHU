@@ -1,0 +1,1098 @@
+give me an IP to send: server's's port? Waiting for a commands...
+client: sent 1036 bytes to 127.0.0.1
+client: receive 1036 bytes from 127.0.0.1
+FILE_EXISTS
+Receiving...
+	Received a packet seq_num = 0
+	Packet id: 0, total 1024 bytes, data 1012 bytes, total 1012
+	Oops! Packet loss!
+	Received a packet seq_num = 1
+	Packet id: 1, total 1024 bytes, data 1012 bytes, total 2024
+	Received a packet seq_num = 2
+	Packet id: 2, total 1024 bytes, data 1012 bytes, total 3036
+	Received a packet seq_num = 0
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 4
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 1
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 5
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 6
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 3
+	Packet id: 3, total 1024 bytes, data 1012 bytes, total 4048
+	Received a packet seq_num = 5
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 4
+	Packet id: 4, total 1024 bytes, data 1012 bytes, total 5060
+	Received a packet seq_num = 7
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 4
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 6
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 5
+	Packet id: 5, total 1024 bytes, data 1012 bytes, total 6072
+	Oops! Packet loss!
+	Received a packet seq_num = 8
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 9
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 6
+	Packet id: 6, total 1024 bytes, data 1012 bytes, total 7084
+	Oops! Packet loss!
+	Received a packet seq_num = 8
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 10
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 7
+	Packet id: 7, total 1024 bytes, data 1012 bytes, total 8096
+	Oops! Packet loss!
+	Received a packet seq_num = 10
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 8
+	Packet id: 8, total 1024 bytes, data 1012 bytes, total 9108
+	Received a packet seq_num = 11
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 9
+	Packet id: 9, total 1024 bytes, data 1012 bytes, total 10120
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 13
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 12
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 10
+	Packet id: 10, total 1024 bytes, data 1012 bytes, total 11132
+	Received a packet seq_num = 11
+	Packet id: 11, total 1024 bytes, data 1012 bytes, total 12144
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 10
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 14
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 13
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 14
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 12
+	Packet id: 12, total 1024 bytes, data 1012 bytes, total 13156
+	Oops! Packet loss!
+	Received a packet seq_num = 16
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 14
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 15
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 16
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 13
+	Packet id: 13, total 1024 bytes, data 1012 bytes, total 14168
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 17
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 16
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 14
+	Packet id: 14, total 1024 bytes, data 1012 bytes, total 15180
+	Oops! Packet loss!
+	Received a packet seq_num = 17
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 18
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 15
+	Packet id: 15, total 1024 bytes, data 1012 bytes, total 16192
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 16
+	Packet id: 16, total 1024 bytes, data 1012 bytes, total 17204
+	Received a packet seq_num = 19
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 16
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 19
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 17
+	Packet id: 17, total 1024 bytes, data 1012 bytes, total 18216
+	Received a packet seq_num = 18
+	Packet id: 18, total 1024 bytes, data 1012 bytes, total 19228
+	Received a packet seq_num = 20
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 21
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 22
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 21
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 19
+	Packet id: 19, total 1024 bytes, data 1012 bytes, total 20240
+	Received a packet seq_num = 22
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 21
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 22
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 20
+	Packet id: 20, total 1024 bytes, data 1012 bytes, total 21252
+	Received a packet seq_num = 21
+	Packet id: 21, total 1024 bytes, data 1012 bytes, total 22264
+	Oops! Packet loss!
+	Received a packet seq_num = 24
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 23
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 24
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 25
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 25
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 24
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 22
+	Packet id: 22, total 1024 bytes, data 1012 bytes, total 23276
+	Received a packet seq_num = 26
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 25
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 25
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 23
+	Packet id: 23, total 1024 bytes, data 1012 bytes, total 24288
+	Oops! Packet loss!
+	Received a packet seq_num = 25
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 26
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 25
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 26
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 24
+	Packet id: 24, total 1024 bytes, data 1012 bytes, total 25300
+	Received a packet seq_num = 28
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 26
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 27
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 25
+	Packet id: 25, total 1024 bytes, data 1012 bytes, total 26312
+	Received a packet seq_num = 29
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 27
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 29
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 28
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 26
+	Packet id: 26, total 1024 bytes, data 1012 bytes, total 27324
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 29
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 30
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 29
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 30
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 28
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 30
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 30
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 27
+	Packet id: 27, total 1024 bytes, data 1012 bytes, total 28336
+	Oops! Packet loss!
+	Received a packet seq_num = 29
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 28
+	Packet id: 28, total 1024 bytes, data 1012 bytes, total 29348
+	Oops! Packet loss!
+	Received a packet seq_num = 30
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 29
+	Packet id: 29, total 1024 bytes, data 1012 bytes, total 30360
+	Received a packet seq_num = 33
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 30
+	Packet id: 30, total 1024 bytes, data 1012 bytes, total 31372
+	Received a packet seq_num = 34
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 31
+	Packet id: 31, total 1024 bytes, data 1012 bytes, total 32384
+	Received a packet seq_num = 35
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 33
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 34
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 35
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 33
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 32
+	Packet id: 32, total 1024 bytes, data 1012 bytes, total 33396
+	Received a packet seq_num = 36
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 34
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 35
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 33
+	Packet id: 33, total 1024 bytes, data 1012 bytes, total 34408
+	Received a packet seq_num = 37
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 36
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 37
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 36
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 35
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 36
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 35
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 37
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 34
+	Packet id: 34, total 1024 bytes, data 1012 bytes, total 35420
+	Received a packet seq_num = 38
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 35
+	Packet id: 35, total 1024 bytes, data 1012 bytes, total 36432
+	Oops! Packet loss!
+	Received a packet seq_num = 37
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 36
+	Packet id: 36, total 1024 bytes, data 1012 bytes, total 37444
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 39
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 37
+	Packet id: 37, total 1024 bytes, data 1012 bytes, total 38456
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 38
+	Packet id: 38, total 1024 bytes, data 1012 bytes, total 39468
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 40
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 42
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 41
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 41
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 42
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 40
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 42
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 39
+	Packet id: 39, total 1024 bytes, data 1012 bytes, total 40480
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 40
+	Packet id: 40, total 1024 bytes, data 1012 bytes, total 41492
+	Received a packet seq_num = 44
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 42
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 41
+	Packet id: 41, total 1024 bytes, data 1012 bytes, total 42504
+	Oops! Packet loss!
+	Received a packet seq_num = 44
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 42
+	Packet id: 42, total 1024 bytes, data 1012 bytes, total 43516
+	Received a packet seq_num = 46
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 45
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 43
+	Packet id: 43, total 1024 bytes, data 1012 bytes, total 44528
+	Received a packet seq_num = 47
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 47
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 45
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 44
+	Packet id: 44, total 1024 bytes, data 1012 bytes, total 45540
+	Oops! Packet loss!
+	Received a packet seq_num = 46
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 46
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 45
+	Packet id: 45, total 1024 bytes, data 1012 bytes, total 46552
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 47
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 49
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 48
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 46
+	Packet id: 46, total 1024 bytes, data 1012 bytes, total 47564
+	Oops! Packet loss!
+	Received a packet seq_num = 47
+	Packet id: 47, total 1024 bytes, data 1012 bytes, total 48576
+	Oops! Packet loss!
+	Received a packet seq_num = 49
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 48
+	Packet id: 48, total 1024 bytes, data 1012 bytes, total 49588
+	Received a packet seq_num = 52
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 50
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 49
+	Packet id: 49, total 1024 bytes, data 1012 bytes, total 50600
+	Received a packet seq_num = 53
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 50
+	Packet id: 50, total 1024 bytes, data 1012 bytes, total 51612
+	Received a packet seq_num = 51
+	Packet id: 51, total 1024 bytes, data 1012 bytes, total 52624
+	Received a packet seq_num = 54
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 52
+	Packet id: 52, total 1024 bytes, data 1012 bytes, total 53636
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 53
+	Packet id: 53, total 1024 bytes, data 1012 bytes, total 54648
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 51
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 57
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 54
+	Packet id: 54, total 1024 bytes, data 1012 bytes, total 55660
+	Oops! Packet loss!
+	Received a packet seq_num = 56
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 57
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 56
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 55
+	Packet id: 55, total 1024 bytes, data 1012 bytes, total 56672
+	Received a packet seq_num = 56
+	Packet id: 56, total 1024 bytes, data 1012 bytes, total 57684
+	Received a packet seq_num = 58
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 59
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 57
+	Packet id: 57, total 1024 bytes, data 1012 bytes, total 58696
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 56
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 59
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 61
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 59
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 58
+	Packet id: 58, total 1024 bytes, data 1012 bytes, total 59708
+	Oops! Packet loss!
+	Received a packet seq_num = 59
+	Packet id: 59, total 1024 bytes, data 1012 bytes, total 60720
+	Received a packet seq_num = 60
+	Packet id: 60, total 1024 bytes, data 1012 bytes, total 61732
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 61
+	Packet id: 61, total 1024 bytes, data 1012 bytes, total 62744
+	Received a packet seq_num = 58
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 62
+	Packet id: 62, total 1024 bytes, data 1012 bytes, total 63756
+	Oops! Packet loss!
+	Received a packet seq_num = 64
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 62
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 64
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 63
+	Packet id: 63, total 1024 bytes, data 1012 bytes, total 64768
+	Received a packet seq_num = 64
+	Packet id: 64, total 1024 bytes, data 1012 bytes, total 65780
+	Oops! Packet loss!
+	Received a packet seq_num = 65
+	Packet id: 65, total 1024 bytes, data 1012 bytes, total 66792
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 64
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 68
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 67
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 68
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 66
+	Packet id: 66, total 1024 bytes, data 1012 bytes, total 67804
+	Received a packet seq_num = 68
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 68
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 69
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 70
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 67
+	Packet id: 67, total 1024 bytes, data 1012 bytes, total 68816
+	Received a packet seq_num = 71
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 68
+	Packet id: 68, total 1024 bytes, data 1012 bytes, total 69828
+	Received a packet seq_num = 72
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 71
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 70
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 71
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 72
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 71
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 70
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 69
+	Packet id: 69, total 1024 bytes, data 1012 bytes, total 70840
+	Oops! Packet loss!
+	Received a packet seq_num = 73
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 73
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 73
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 70
+	Packet id: 70, total 1024 bytes, data 1012 bytes, total 71852
+	Oops! Packet loss!
+	Received a packet seq_num = 72
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 74
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 74
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 72
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 71
+	Packet id: 71, total 1024 bytes, data 1012 bytes, total 72864
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 73
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 74
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 73
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 72
+	Packet id: 72, total 1024 bytes, data 1012 bytes, total 73876
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 74
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 75
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 73
+	Packet id: 73, total 1024 bytes, data 1012 bytes, total 74888
+	Oops! Packet loss!
+	Received a packet seq_num = 74
+	Packet id: 74, total 1024 bytes, data 1012 bytes, total 75900
+	Received a packet seq_num = 76
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 75
+	Packet id: 75, total 1024 bytes, data 1012 bytes, total 76912
+	Received a packet seq_num = 78
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 77
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 79
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 78
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 79
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 76
+	Packet id: 76, total 1024 bytes, data 1012 bytes, total 77924
+	Received a packet seq_num = 80
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 78
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 77
+	Packet id: 77, total 1024 bytes, data 1012 bytes, total 78936
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 80
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 78
+	Packet id: 78, total 1024 bytes, data 1012 bytes, total 79948
+	Received a packet seq_num = 82
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 82
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 79
+	Packet id: 79, total 1024 bytes, data 1012 bytes, total 80960
+	Received a packet seq_num = 83
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 80
+	Packet id: 80, total 1024 bytes, data 1012 bytes, total 81972
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 84
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 82
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 84
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 82
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 81
+	Packet id: 81, total 1024 bytes, data 1012 bytes, total 82984
+	Oops! Packet loss!
+	Received a packet seq_num = 83
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 85
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 83
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 84
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 82
+	Packet id: 82, total 1024 bytes, data 1012 bytes, total 83996
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 83
+	Packet id: 83, total 1024 bytes, data 1012 bytes, total 85008
+	Received a packet seq_num = 87
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 84
+	Packet id: 84, total 1024 bytes, data 1012 bytes, total 86020
+	Received a packet seq_num = 88
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 86
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 87
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 88
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 86
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 87
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 88
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 86
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 85
+	Packet id: 85, total 1024 bytes, data 1012 bytes, total 87032
+	Received a packet seq_num = 89
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 87
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 88
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 86
+	Packet id: 86, total 1024 bytes, data 1012 bytes, total 88044
+	Oops! Packet loss!
+	Received a packet seq_num = 89
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 87
+	Packet id: 87, total 1024 bytes, data 1012 bytes, total 89056
+	Received a packet seq_num = 91
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 88
+	Packet id: 88, total 1024 bytes, data 1012 bytes, total 90068
+	Received a packet seq_num = 92
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 90
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 91
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 89
+	Packet id: 89, total 1024 bytes, data 1012 bytes, total 91080
+	Received a packet seq_num = 93
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 91
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 92
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 93
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 91
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 92
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 90
+	Packet id: 90, total 1024 bytes, data 1012 bytes, total 92092
+	Oops! Packet loss!
+	Received a packet seq_num = 93
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 92
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 94
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 93
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 91
+	Packet id: 91, total 1024 bytes, data 1012 bytes, total 93104
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 94
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 95
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 94
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 92
+	Packet id: 92, total 1024 bytes, data 1012 bytes, total 94116
+	Received a packet seq_num = 96
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 94
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 93
+	Packet id: 93, total 1024 bytes, data 1012 bytes, total 95128
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 96
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 95
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 96
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 95
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 96
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 94
+	Packet id: 94, total 1024 bytes, data 1012 bytes, total 96140
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 95
+	Packet id: 95, total 1024 bytes, data 1012 bytes, total 97152
+	Received a packet seq_num = 99
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 96
+	Packet id: 96, total 1024 bytes, data 1012 bytes, total 98164
+	Received a packet seq_num = 100
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 98
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 99
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 97
+	Packet id: 97, total 1024 bytes, data 1012 bytes, total 99176
+	Oops! Packet loss!
+	Received a packet seq_num = 99
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 100
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 99
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 100
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 98
+	Packet id: 98, total 1024 bytes, data 1012 bytes, total 100188
+	Oops! Packet loss!
+	Received a packet seq_num = 101
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 99
+	Packet id: 99, total 1024 bytes, data 1012 bytes, total 101200
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 102
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 101
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 103
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 103
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 100
+	Packet id: 100, total 1024 bytes, data 1012 bytes, total 102212
+	Oops! Packet loss!
+	Received a packet seq_num = 102
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 101
+	Packet id: 101, total 1024 bytes, data 1012 bytes, total 103224
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 102
+	Packet id: 102, total 1024 bytes, data 1012 bytes, total 104236
+	Received a packet seq_num = 106
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 105
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 103
+	Packet id: 103, total 1024 bytes, data 1012 bytes, total 105248
+	Oops! Packet loss!
+	Received a packet seq_num = 104
+	Packet id: 104, total 1024 bytes, data 1012 bytes, total 106260
+	Received a packet seq_num = 108
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 106
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 105
+	Packet id: 105, total 1024 bytes, data 1012 bytes, total 107272
+	Received a packet seq_num = 109
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 107
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 108
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 108
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 106
+	Packet id: 106, total 1024 bytes, data 1012 bytes, total 108284
+	Received a packet seq_num = 110
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 108
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 109
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 107
+	Packet id: 107, total 1024 bytes, data 1012 bytes, total 109296
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 110
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 111
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 108
+	Packet id: 108, total 1024 bytes, data 1012 bytes, total 110308
+	Received a packet seq_num = 112
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 110
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 109
+	Packet id: 109, total 1024 bytes, data 1012 bytes, total 111320
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 110
+	Packet id: 110, total 1024 bytes, data 1012 bytes, total 112332
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 114
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 113
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 112
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 111
+	Packet id: 111, total 1024 bytes, data 1012 bytes, total 113344
+	Received a packet seq_num = 115
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 115
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 112
+	Packet id: 112, total 1024 bytes, data 1012 bytes, total 114356
+	Oops! Packet loss!
+	Received a packet seq_num = 116
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 115
+	Oops! Out of sequence packet!
+	Oops! Packet loss!
+	Received a packet seq_num = 116
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 113
+	Packet id: 113, total 1024 bytes, data 1012 bytes, total 115368
+	Oops! Packet loss!
+	Received a packet seq_num = 115
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 114
+	Packet id: 114, total 1024 bytes, data 1012 bytes, total 116380
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 117
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 115
+	Packet id: 115, total 1024 bytes, data 1012 bytes, total 117392
+	Received a packet seq_num = 119
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 118
+	Oops! Out of sequence packet!
+	Received a packet seq_num = 116
+	Packet id: 116, total 1024 bytes, data 1012 bytes, total 118404
+	Oops! Packet loss!
+	Received a packet seq_num = 117
+	Packet id: 117, total 1024 bytes, data 1012 bytes, total 119416
+	Oops! Packet loss!
+	Received a packet seq_num = 118
+	Packet id: 118, total 1024 bytes, data 1012 bytes, total 120428
+	Oops! Packet loss!
+	Received a packet seq_num = 119
+	Packet id: 119, total 1024 bytes, data 1012 bytes, total 121440
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Oops! Packet loss!
+	Received a packet seq_num = 120
+	Packet id: 120, total 551 bytes, data 539 bytes, total 121979
+client received finished
+Size: 121979 bytes, 121 pkts
+Total cost 5 secs
+Waiting for a commands...

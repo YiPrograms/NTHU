@@ -52,13 +52,12 @@ typedef struct udp_pkt{
 //=============
 int sockfd;
 struct sockaddr_in info, client_info;
-Udp_pkt snd_pkt,rcv_pkt;
+Udp_pkt snd_pkt,rcv_pkt,rcv_pkt_buffer;
 socklen_t len;
 pthread_t th1,th2;
 int first_time_create_thread = 0;
 
 int got_rcv = 0;
-
 
 char buffer[150000];
 int window[15000];
@@ -82,6 +81,7 @@ const size_t datasize = sizeof(snd_pkt.data);
  * 
  *********************************************************/
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t recv_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
 //==============================
@@ -99,9 +99,12 @@ void* receive_thread()
 	// Receive client ack
 	//===================
 	// A thread keep receiving client ack
-	while (recvfrom(sockfd, &rcv_pkt, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len) != -1)
+	while (recvfrom(sockfd, &rcv_pkt_buffer, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len) != -1)
 	{
-		got_rcv = 1;
+		pthread_mutex_lock(&recv_mutex);
+			got_rcv = 1;
+			memcpy(&rcv_pkt, &rcv_pkt_buffer, sizeof(rcv_pkt));
+		pthread_mutex_unlock(&recv_mutex);
 	}	
 	//==========================================
 	// Keep the thread alive not to umcomment it
@@ -125,6 +128,8 @@ void* timeout_thread(void *args)
 	const unsigned int offset = datasize * n;
 	const unsigned int datalen = (filesize - offset) < datasize? (filesize - offset): datasize;
 
+	free(args);
+
 	do {
 
 		pthread_mutex_lock(&mutex);
@@ -132,7 +137,7 @@ void* timeout_thread(void *args)
 			snd_pkt.header.isLast = is_last;
 			memcpy(snd_pkt.data, buffer + offset, datalen);
 			int numbytes;
-			if ((numbytes = sendto(sockfd, &snd_pkt, datalen, 0,(struct sockaddr *)&client_info, len)) == -1) 
+			if ((numbytes = sendto(sockfd, &snd_pkt, sizeof(snd_pkt.header) + datalen, 0,(struct sockaddr *)&client_info, len)) == -1) 
 			{
 				printf("sendto error\n");
 				return 0;
@@ -148,7 +153,7 @@ void* timeout_thread(void *args)
 		while (window[n] != 2 && ((clock()*1000)/CLOCKS_PER_SEC - t) < TIMEOUT);
 
 		if (window[n] != 2) {
-			printf("\tTimeout! Resend packet sequence %d!\n", n);
+			printf("\tTimeout! Resend packet sequence %d! window = %d\n", n, window[n]);
 		}
 
 	} while (window[n] != 2);
@@ -209,8 +214,12 @@ int sendFile(FILE *fd)
 
 		while (!got_rcv);
 
-		printf("\tReceived a packet ack_num = %d\n", rcv_pkt.header.ack_num);
-		window[rcv_pkt.header.ack_num] = 2;
+		pthread_mutex_lock(&recv_mutex);
+			printf("\tReceived a packet ack_num = %d\n", rcv_pkt.header.ack_num);
+			window[rcv_pkt.header.ack_num] = 2;
+			printf("\tSet window %d: %d\n", rcv_pkt.header.ack_num, window[rcv_pkt.header.ack_num]);
+		pthread_mutex_unlock(&recv_mutex);
+
 
 		while (window[cur_window] == 2)
 			cur_window++;

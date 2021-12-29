@@ -9,7 +9,7 @@
 #include <arpa/inet.h> 
 
 #include <errno.h>
-
+#define WND_SIZE 4
 /*****************notice**********************
  * 
  * You can follow the comment inside the code.
@@ -53,6 +53,12 @@ struct sockaddr_in info, client_info;
 socklen_t len;
 time_t t1, t2;
 
+char buffer[150000];
+int window[15000];
+
+const size_t datasize = sizeof(snd_pkt.data);
+
+
 //=====================
 // Simulate packet loss
 //=====================
@@ -95,10 +101,11 @@ int recvFile(FILE *fd)
 
 	
 	printf("Receiving...\n");
-	char buffer[150000];
-	int index=0;
+	memset(window, 0, sizeof(window));
+	int cur_window = 0;
+	int filesize = 0;
 	int done=0;
-	unsigned int nextACK = 0;
+	int last_packet = -100;
 	memset(snd_pkt.data, '\0', sizeof(snd_pkt.data));
 	while(!done) 
 	{
@@ -120,16 +127,16 @@ int recvFile(FILE *fd)
 
 			
 			printf("\tReceived a packet seq_num = %d\n", rcv_pkt.header.seq_num);
+
+			if (rcv_pkt.header.seq_num >= cur_window + WND_SIZE) {
+				printf("\tOops! Over window size!\n");
+				break;
+			}
 			
 			//====================
 			// Reply ack to server
 			//====================
-
-			if (rcv_pkt.header.seq_num > nextACK) {
-				printf("\tOops! Out of sequence packet!\n");
-				break;
-			}
-
+			
 			int sendlen;
 			snd_pkt.header.ack_num = rcv_pkt.header.seq_num;
 			if ((sendlen = sendto(sockfd, &snd_pkt, sizeof(snd_pkt), 0,(struct sockaddr *)&client_info, len)) == -1) 
@@ -137,26 +144,30 @@ int recvFile(FILE *fd)
 				printf("sendto error\n");
 				return 0;
 			}
+
+			if (window[rcv_pkt.header.seq_num])
+				break;
 			
 			//==============================================
 			// Actually receive packet and write into buffer
 			//==============================================
 
-			if (rcv_pkt.header.seq_num != nextACK) {
-				printf("\tOops! Out of sequence packet!\n");
-				break;
+			if (rcv_pkt.header.is_last)
+				last_packet = rcv_pkt.header.seq_num;
+
+			memcpy(buffer + rcv_pkt.header.seq_num * datasize, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
+			filesize += numbytes - sizeof(rcv_pkt.header);
+			window[rcv_pkt.header.seq_num] = 1;
+			printf("Written: %d\n", rcv_pkt.header.seq_num);
+
+
+			while (window[cur_window]) {
+				cur_window++;
+				printf("Cur window: %d\n", cur_window);
 			}
 
-			memcpy(buffer + index, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
-			index += numbytes - sizeof(rcv_pkt.header);
-			nextACK++;
-
-			//==============================================
-			// Write buffer into file if is_last flag is set
-			//==============================================
-			
-			if (rcv_pkt.header.is_last) {
-				fwrite(buffer, 1, index, fd);
+			if (cur_window == last_packet + 1){
+				fwrite(buffer, 1, filesize, fd);
 				printf("client received finished\n");
 				done = 1;
 				break;
