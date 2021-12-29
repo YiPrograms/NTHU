@@ -8,6 +8,8 @@
 #include <time.h>
 #include <arpa/inet.h> 
 
+#include <errno.h>
+
 /*****************notice**********************
  * 
  * You can follow the comment inside the code.
@@ -84,11 +86,19 @@ int recvFile(FILE *fd)
 	
 	//FILE *fd;
 	fd = fopen(fileName, "wb");
+
+
+	struct timeval tv;
+	tv.tv_sec = 3;
+	tv.tv_usec = 0;
+	setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
+
 	
 	printf("Receiving...\n");
 	char buffer[150000];
 	int index=0;
 	int done=0;
+	unsigned int nextACK = 0;
 	memset(snd_pkt.data, '\0', sizeof(snd_pkt.data));
 	while(!done) 
 	{
@@ -107,26 +117,34 @@ int recvFile(FILE *fd)
 				printf("\tOops! Packet loss!\n");
 				break;
 			}
-			//==============================================
-			// Actually receive packet and write into buffer
-			//==============================================
+
 			
-			memcpy(buffer + index, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
-			index += numbytes - sizeof(rcv_pkt.header);
 			printf("\tReceived a packet seq_num = %d\n", rcv_pkt.header.seq_num);
-			
 			
 			//====================
 			// Reply ack to server
 			//====================
 
+			int sendlen;
 			snd_pkt.header.ack_num = rcv_pkt.header.seq_num;
-			if ((sendto(sockfd, &snd_pkt, sizeof(snd_pkt), 0,(struct sockaddr *)&client_info, len)) == -1) 
+			if ((sendlen = sendto(sockfd, &snd_pkt, sizeof(snd_pkt), 0,(struct sockaddr *)&client_info, len)) == -1) 
 			{
 				printf("sendto error\n");
 				return 0;
 			}
 			
+			//==============================================
+			// Actually receive packet and write into buffer
+			//==============================================
+
+			if (rcv_pkt.header.seq_num != nextACK) {
+				printf("\tOops! Out of sequence packet!\n");
+				break;
+			}
+
+			memcpy(buffer + index, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
+			index += numbytes - sizeof(rcv_pkt.header);
+			nextACK++;
 
 			//==============================================
 			// Write buffer into file if is_last flag is set
@@ -138,6 +156,14 @@ int recvFile(FILE *fd)
 				done = 1;
 				break;
 			}
+		}
+
+		if (numbytes == -1) {
+			int err = errno;
+			if (err == EAGAIN)
+				printf("Socket timeout! errno: %d\n", err);
+			else
+				printf("Socket error occurred! errno: %d\n", err);
 		}
 	}
 	return 0;

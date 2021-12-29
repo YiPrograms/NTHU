@@ -141,6 +141,7 @@ int sendFile(FILE *fd)
 
 	int cursize = 0;
 	snd_pkt.header.seq_num = 0;
+	got_rcv = 0;
 	while (cursize < filesize) {
 
 		//==========================
@@ -181,6 +182,9 @@ int sendFile(FILE *fd)
 
 			if (!got_rcv) {
 				printf("\tTimeout! Resend packet!\n");
+				continue;
+			} else if (rcv_pkt.header.ack_num != snd_pkt.header.seq_num) {
+				printf("\tWrong ACK! Expected %d, but got %d! Resend packet!\n", snd_pkt.header.seq_num, rcv_pkt.header.ack_num);
 				continue;
 			} else {
 				printf("\tReceived a packet ack_num = %d\n", rcv_pkt.header.ack_num);
