@@ -10,6 +10,8 @@
 #include <sys/wait.h>
 #include <pthread.h>
 #define TIMEOUT 100
+
+#include <signal.h>
 /*****************notice**********************
  * 
  * You can follow the comment inside the code.
@@ -73,7 +75,7 @@ sig_atomic_t got_rcv = 0;
  * pthread_mutex_unlock( &mutex );
  * 
  *********************************************************/
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+// pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
 //==============================

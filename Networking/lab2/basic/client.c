@@ -124,7 +124,6 @@ int recvFile(FILE *fd)
 			//====================
 			// Reply ack to server
 			//====================
-
 			int sendlen;
 			snd_pkt.header.ack_num = rcv_pkt.header.seq_num;
 			if ((sendlen = sendto(sockfd, &snd_pkt, sizeof(snd_pkt), 0,(struct sockaddr *)&client_info, len)) == -1) 
@@ -137,11 +136,13 @@ int recvFile(FILE *fd)
 			// Actually receive packet and write into buffer
 			//==============================================
 
+			// Ignore out of sequence packets
 			if (rcv_pkt.header.seq_num != nextACK) {
 				printf("\tOops! Out of sequence packet!\n");
 				break;
 			}
 
+			// Copy the data to the buffer
 			memcpy(buffer + index, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
 			index += numbytes - sizeof(rcv_pkt.header);
 			nextACK++;
@@ -151,7 +152,7 @@ int recvFile(FILE *fd)
 			//==============================================
 			
 			if (rcv_pkt.header.is_last) {
-				fwrite(buffer, 1, index, fd);
+				int ret = fwrite(buffer, 1, index, fd);
 				printf("client received finished\n");
 				done = 1;
 				break;
@@ -166,6 +167,7 @@ int recvFile(FILE *fd)
 				printf("Socket error occurred! errno: %d\n", err);
 		}
 	}
+	fclose(fd);
 	return 0;
 }
 

@@ -128,6 +128,7 @@ int recvFile(FILE *fd)
 			
 			printf("\tReceived a packet seq_num = %d\n", rcv_pkt.header.seq_num);
 
+			// Ignore packets that is over client's window size
 			if (rcv_pkt.header.seq_num >= cur_window + WND_SIZE) {
 				printf("\tOops! Over window size!\n");
 				break;
@@ -136,7 +137,6 @@ int recvFile(FILE *fd)
 			//====================
 			// Reply ack to server
 			//====================
-			
 			int sendlen;
 			snd_pkt.header.ack_num = rcv_pkt.header.seq_num;
 			if ((sendlen = sendto(sockfd, &snd_pkt, sizeof(snd_pkt), 0,(struct sockaddr *)&client_info, len)) == -1) 
@@ -145,6 +145,8 @@ int recvFile(FILE *fd)
 				return 0;
 			}
 
+
+			// We've already received the packet before, so we just send ACK back to the server
 			if (window[rcv_pkt.header.seq_num])
 				break;
 			
@@ -152,17 +154,20 @@ int recvFile(FILE *fd)
 			// Actually receive packet and write into buffer
 			//==============================================
 
+			// Track the last packet
 			if (rcv_pkt.header.is_last)
 				last_packet = rcv_pkt.header.seq_num;
 
+			// Copy the data to our buffer, and track file size
 			memcpy(buffer + rcv_pkt.header.seq_num * datasize, rcv_pkt.data, numbytes - sizeof(rcv_pkt.header));
 			filesize += numbytes - sizeof(rcv_pkt.header);
 			window[rcv_pkt.header.seq_num] = 1;
 
-
+			// Move window forward if in-sequence packets are acked
 			while (window[cur_window])
 				cur_window++;
 
+			// All packets are received
 			if (cur_window == last_packet + 1){
 				fwrite(buffer, 1, filesize, fd);
 				printf("client received finished\n");
@@ -179,6 +184,7 @@ int recvFile(FILE *fd)
 				printf("Socket error occurred! errno: %d\n", err);
 		}
 	}
+	fclose(fd);
 	return 0;
 }
 

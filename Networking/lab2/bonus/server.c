@@ -57,15 +57,17 @@ socklen_t len;
 pthread_t th1,th2;
 int first_time_create_thread = 0;
 
-Udp_pkt queue[WND_SIZE];
-int front = 0;
-int rear = 0;
-
 char buffer[150000];
 int window[15000];
 int filesize;
 
 const size_t datasize = sizeof(snd_pkt.data);
+
+typedef enum _WND_STATE{
+	NOT_SENT,
+	SENT,
+	ACKED
+} WND_STATE;
 
 //---------------------------------------
 // Declare for critical section in bonus. 
@@ -85,32 +87,11 @@ const size_t datasize = sizeof(snd_pkt.data);
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
-//==============================
-// Basic part for receive_thread
-//==============================
-/*******************notice***************************
- * 
- * In bonus part, you should use following threads to
- * checking timeout and receive client ack.
- * 
- ***************************************************/
-void* receive_thread()
-{
-	//===================
-	// Receive client ack
-	//===================
-	// A thread keep receiving client ack
-	
-	//==========================================
-	// Keep the thread alive not to umcomment it
-	//==========================================
-	//pthread_exit(NULL);
-}
-
 //------------------------------
 // Bonus part for timeout_thread
 //------------------------------
 
+// We use timeout thread to send & track timeouts for specific seq num
 typedef struct _timeout_args {
 	int n;
 	int is_last;
@@ -126,7 +107,7 @@ void* timeout_thread(void *args)
 	free(args);
 
 	do {
-
+		// Send the packet
 		pthread_mutex_lock(&mutex);
 			snd_pkt.header.seq_num = n;
 			snd_pkt.header.isLast = is_last;
@@ -142,73 +123,65 @@ void* timeout_thread(void *args)
 
 		printf("\tSend %d bytes (seq_num: %d)\n", numbytes, snd_pkt.header.seq_num);
 			
+		// Track timeout
 		clock_t t;
 		t = (clock()*1000)/CLOCKS_PER_SEC;
 
-		while (window[n] != 2 && ((clock()*1000)/CLOCKS_PER_SEC - t) < TIMEOUT);
+		// Wait for ACK received or timeout
+		while (window[n] != ACKED && ((clock()*1000)/CLOCKS_PER_SEC - t) < TIMEOUT);
 
-		if (window[n] != 2) {
+		// If ACK not received, resend packet
+		if (window[n] != ACKED)
 			printf("\tTimeout! Resend packet sequence %d!", n);
-		}
 
-	} while (window[n] != 2);
+	} while (window[n] != ACKED);
 	
+	// ACK received for this seq num, exit thread
 	pthread_exit(NULL);
 }
 
 //==================================
 // You should complete this function
 //==================================
-// Send file function, it call receive_thread function at the first time.
 int sendFile(FILE *fd)
 {	
+	// Read the file to buffer
 	filesize=ftell(fd);
 	rewind(fd);
 	fread(buffer, 1, filesize, fd);
 
-	//----------------------------------------------------------------
-	// Bonus part for declare timeout threads if you need bonus point,
-	// umcomment it and manage the thread by youself
-	//----------------------------------------------------------------
-	// At the first time, we need to create thread.
-	// if(!first_time_create_thread)
-	// {
-	// 	first_time_create_thread=1;
-	// 	pthread_create(&th1, NULL, receive_thread, NULL);
-	// 	//pthread_create(&th2, NULL, timeout_process, NULL);
-	// }
-	/*******************notice************************
-	 * 
-	 * In basic part, you should finish this function.
-	 * You can try test_clock.c for clock() usage.
-	 * checking timeout and receive client ack.
-	 * 
-	 ************************************************/
-
 	memset(window, 0, sizeof(window));
-	front = rear = 0;
 
 	const int pkts_cnt = ceil(filesize * 1.0 / datasize);
 	int cur_window = 0;
 
 	do {
+
+		// Check if there are packet in the window that haven't been sent
+		// Create a timeout thread for such packets
 		for (int i = cur_window; i < cur_window + WND_SIZE && i < pkts_cnt; i++) {
-			if (window[i] == 0) {
+			if (window[i] == NOT_SENT) {
 				timeout_args *args = (timeout_args *)malloc(sizeof(timeout_args));
 				args->n = i;
 				args->is_last = i == pkts_cnt - 1;
 				pthread_create(&th2, NULL, timeout_thread, args);
-				window[i] = 1;
+				window[i] = SENT;
 			}
 		}
 
+		// Since we track timeouts from the timeout thread,
+		// we can use the main thread for receiving
 		recvfrom(sockfd, &rcv_pkt, sizeof(rcv_pkt), 0, (struct sockaddr *)&client_info, (socklen_t *)&len);
 
 		printf("\tReceived a packet ack_num = %d\n", rcv_pkt.header.ack_num);
-		window[rcv_pkt.header.ack_num] = 2;
 
-		while (window[cur_window] == 2)
+		// Set the seq num state to ACKED
+		window[rcv_pkt.header.ack_num] = ACKED;
+
+		// Move the window if packets are ACKed
+		while (window[cur_window] == ACKED)
 			cur_window++;
+
 	} while (cur_window < pkts_cnt);
 
 	printf("send file successfully\n");
